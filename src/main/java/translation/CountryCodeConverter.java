@@ -42,8 +42,8 @@ public class CountryCodeConverter {
                 String line = iterator.next();
                 String[] parts = line.split("\t");
                 // TODO Task B: use parts to populate the instance variables
-                countryCodeToCountry.put(parts[2].trim(), parts[0].trim());
-                countryToCountryCode.put(parts[0].trim(), parts[2].trim());
+                countryCodeToCountry.put(parts[2].trim().toLowerCase(), parts[0].trim());
+                countryToCountryCode.put(parts[0].trim(), parts[2].trim().toLowerCase());
                 //System.out.println(parts[2].trim() + ' ' + parts[0].trim());
             }
         }

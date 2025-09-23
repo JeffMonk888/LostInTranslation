@@ -43,13 +43,12 @@ public class JSONTranslator implements Translator {
             String jsonString = Files.readString(Paths.get(getClass().getClassLoader().getResource(filename).toURI()));
 
             JSONArray jsonArray = new JSONArray(jsonString);
+            List<String> languages = new ArrayList<>();
 
             for (int i = 0; i < jsonArray.length(); i++) {
 
                 JSONObject countryData = jsonArray.getJSONObject(i);
                 String countryCode = countryData.getString("alpha3");
-
-                List<String> languages = new ArrayList<>();
 
                 if (!countryCodes.contains(countryCode)) {
                     countryCodes.add(countryCode);
@@ -61,14 +60,13 @@ public class JSONTranslator implements Translator {
                         String languageCode = key;
                         translations.put(countryCode + "-" + languageCode, countryData.getString(languageCode));
 
-
                         if (!languages.contains(languageCode)) {
                             languages.add(languageCode);
                         }
                     }
                 }
-                languageCodes.addAll(languages);
             }
+            languageCodes.addAll(languages);
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
@@ -91,7 +89,8 @@ public class JSONTranslator implements Translator {
             return translations.getOrDefault(countryCode + "-" + languageCode, null);
         }
         else {
-            return "JSONTranslator's translate method is not implemented!";
+            //return "JSONTranslator's translate method is not implemented!";
+            return translations.get(countryCode + "-" + languageCode);
         }
 
     }
